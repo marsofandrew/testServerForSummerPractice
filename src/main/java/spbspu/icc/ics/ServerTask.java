@@ -21,7 +21,7 @@ class ServerTask implements Runnable {
 
         //  Launch pool of worker threads, precise number is not critical
         for (int threadNbr = 0; threadNbr < 5; threadNbr++)
-            new Thread(new ServerWorker(ctx)).start();
+            new Thread(new ServerWorker(ctx,ZMQ.DEALER,new FileController())).start();
 
         //  Connect backend to frontend via a proxy
         ZMQ.proxy(frontend, backend, null);

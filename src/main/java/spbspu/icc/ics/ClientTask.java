@@ -13,12 +13,13 @@ import java.util.Random;
  */
 class ClientTask implements Runnable{
     private static Random rand = new Random(System.nanoTime());
+    private static int count = 0;
     public void run() {
         ZContext ctx = new ZContext();
         ZMQ.Socket client = ctx.createSocket(ZMQ.DEALER);
 
         //  Set random identity to make tracing easier
-        String identity = String.format("%04X-%04X", rand.nextInt(), rand.nextInt());
+        String identity = "identyty" + count++;
         client.setIdentity(identity.getBytes());
         client.connect("tcp://localhost:5570");
 
