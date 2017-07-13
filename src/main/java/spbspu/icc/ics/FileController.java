@@ -6,6 +6,6 @@ package spbspu.icc.ics;
 public class FileController {
     public synchronized String getCommand(String client){
         //TODO: write it
-        return "Its Very good" + client;
+        return "Its Very good " + client;
     }
 }
