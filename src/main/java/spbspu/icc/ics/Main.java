@@ -50,9 +50,6 @@ public class Main
 
     public static void main(String[] args) throws Exception {
         ZContext ctx = new ZContext();
-        new Thread(new ClientTask()).start();
-        new Thread(new ClientTask()).start();
-        new Thread(new ClientTask()).start();
         new Thread(new ServerTask()).start();
 
         //  Run for 5 seconds then quit

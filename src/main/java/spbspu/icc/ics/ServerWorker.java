@@ -42,7 +42,12 @@ class ServerWorker implements Runnable {
 
 
             msg.destroy();
-
+            /*try {
+                Thread.sleep(1 + new Random().nextInt(10000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            */
             address.send(worker, ZFrame.REUSE + ZFrame.MORE);
             forSend.send(worker, ZFrame.REUSE);
 
