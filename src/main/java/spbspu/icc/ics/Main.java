@@ -23,30 +23,6 @@ import java.util.Random;
 
 public class Main
 {
-    //---------------------------------------------------------------------
-    //This is our client task
-    //It connects to the server, and then sends a request once per second
-    //It collects responses as they arrive, and it prints them out. We will
-    //run several client tasks in parallel, each with a different random ID.
-
-    private static Random rand = new Random(System.nanoTime());
-
-
-
-    //This is our server task.
-    //It uses the multithreaded server model to deal requests out to a pool
-    //of workers and route replies back to clients. One worker can handle
-    //one request at a time but one client can talk to multiple workers at
-    //once.
-
-
-
-    //Each worker task works on one request at a time and sends a random number
-    //of replies back, with random delays between replies:
-
-
-    //The main thread simply starts several clients, and a server, and then
-    //waits for the server to finish.
 
     public static void main(String[] args) throws Exception {
         ZContext ctx = new ZContext();

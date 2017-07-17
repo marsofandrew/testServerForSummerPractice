@@ -38,10 +38,11 @@ class ClientTask implements Runnable {
         }
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Thread.sleep( 1 + new Random().nextInt(10000));
+                Thread.currentThread().sleep( 1 + new Random().nextInt(1000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            String forTest = "";
             //  Tick once per second, pulling in arriving messages
             for (int centitick = 0; centitick < 100; centitick++) {
 
@@ -51,10 +52,11 @@ class ClientTask implements Runnable {
                 if (items[0].isReadable()) {
                     ZMsg msg = ZMsg.recvMsg(client);
                     msg.getLast().print(identity);
+                    forTest = msg.popString();
                     msg.destroy();
                 }
             }
-            client.send(String.format("Change request #%d", ++requestNbr), 0);
+            client.send(forTest, 0);
         }
         ctx.destroy();
     }

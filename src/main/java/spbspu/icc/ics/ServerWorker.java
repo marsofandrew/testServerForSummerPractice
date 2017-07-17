@@ -6,6 +6,7 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMsg;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -37,7 +38,14 @@ class ServerWorker implements Runnable {
             String reply = address.toString();
             // msg.popString return Massege string;
             System.out.println("reply " + reply);
-            toSend = fileController.getCommand(reply);
+            if (!checkReply(msg.popString())) {
+                System.err.println("something wrong 1 at SErverWorker");
+            }
+            try {
+                toSend = fileController.getCommand(reply);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
 
 
@@ -51,11 +59,11 @@ class ServerWorker implements Runnable {
             address.send(worker, ZFrame.REUSE + ZFrame.MORE);
             forSend.send(worker, ZFrame.REUSE);
 
-
             address.destroy();
 
         }
         ctx.destroy();
+        System.out.println("end ServerTask");
     }
 
     public String getToSend() {
@@ -64,5 +72,12 @@ class ServerWorker implements Runnable {
 
     public void setToSend(String string) {
         toSend = string;
+    }
+
+    private boolean checkReply(String reply) {
+        if (toSend == reply || toSend == null) {
+            return true;
+        }
+        return false;
     }
 }

@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 class ServerTask implements Runnable {
     private int maxThread = 4;
-    //ArrayList<ServerWorker> workers = new ArrayList<ServerWorker>(); // real we don't need this
     public void run() {
         ZContext ctx = new ZContext();
 
@@ -35,6 +34,7 @@ class ServerTask implements Runnable {
         ZMQ.proxy(frontend, backend, null);
 
         ctx.destroy();
+
     }
     public void setMaxThread(int value) throws InvalidArgumentException {
         if (value > 0) {
