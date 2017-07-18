@@ -23,7 +23,7 @@ class ClientTask implements Runnable {
         ZMQ.Socket client = ctx.createSocket(ZMQ.DEALER);
 
         //  Set random identity to make tracing easier
-        String identity = "identity" + this.identity;
+        String identity = this.identity;
         client.setIdentity(identity.getBytes());
         client.connect("tcp://localhost:5570");
 

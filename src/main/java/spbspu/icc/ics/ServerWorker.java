@@ -42,13 +42,9 @@ class ServerWorker implements Runnable {
                 System.err.println("Something wrong 1 at ServerWorker");
             }
 
-            try {
-                //synchronized (this) {
-                    toSend = fileController.getCommand(reply);
-                //}
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //synchronized (this) {
+            toSend = fileController.getCommand(reply);
+            //}
             ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
 
 

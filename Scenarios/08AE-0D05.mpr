@@ -1,0 +1,37 @@
+mscdocument Ring;
+msc Ring;
+TAT: instance;
+SUT: instance;
+TAT: out initialize() to SUT; /*1*/
+SUT: in initialize() from TAT; /*Ring1*/
+TAT: out setPosition ( 50, 50, 100 ) to SUT; /*2*/
+SUT: in setPosition ( 50, 50, 100 ) from TAT; /*Ring1*/
+TAT: out setTool(_spike) to SUT; /*3*/
+SUT: in setTool(_spike) from TAT; /*Ring2*/
+TAT: out moveTool ( 45, 45, 100, 0, 0 ) to SUT; /*4*/
+SUT: in moveTool ( 45, 45, 100, 0, 0 ) from TAT; /*Ring3*/
+TAT: out setTool(_blank) to SUT; /*5*/
+SUT: in setTool(_blank) from TAT; /*Ring3*/
+TAT: out moveTool ( 50, 50, 110, 0, 0 ) to SUT; /*6*/
+SUT: in moveTool ( 50, 50, 110, 0, 0 ) from TAT; /*Ring3*/
+TAT: out setTool(_needle) to SUT; /*7*/
+SUT: in setTool(_needle) from TAT; /*Ring4*/
+TAT: out moveTool ( 50, 50, 112, 0, 0 ) to SUT; /*8*/
+SUT: in moveTool ( 50, 50, 112, 0, 0 ) from TAT; /*Ring5*/
+TAT: out setTool(_blank) to SUT; /*9*/
+SUT: in setTool(_blank) from TAT; /*Ring5*/
+TAT: out moveTool ( 60, 55, 110, 0, 0 ) to SUT; /*10*/
+SUT: in moveTool ( 60, 55, 110, 0, 0 ) from TAT; /*Ring5*/
+TAT: out setTool(_press) to SUT; /*11*/
+SUT: in setTool(_press) from TAT; /*Ring6*/
+TAT: out moveTool ( 60, 55, 0, 0, 0 ) to SUT; /*12*/
+SUT: in moveTool ( 60, 55, 0, 0, 0 ) from TAT; /*Ring7*/
+TAT: out moveTool ( 0, 0, 50, 0, 0 ) to SUT; /*13*/
+SUT: in moveTool ( 0, 0, 50, 0, 0 ) from TAT; /*Ring8*/
+TAT: out setTool(_blank) to SUT; /*14*/
+SUT: in setTool(_blank) from TAT; /*Ring8*/
+TAT: out EndWork() to SUT; /*15*/
+SUT: in EndWork() from TAT; /*Ring8*/
+TAT : endinstance;
+SUT : endinstance;
+endmsc;

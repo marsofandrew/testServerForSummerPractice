@@ -1,0 +1,47 @@
+mscdocument Shovel;
+msc Shovel;
+TAT: instance;
+SUT: instance;
+TAT: out initialize() to SUT; /*1*/ 
+SUT: in initialize() from TAT; /*Shovel1*/
+TAT: out setPosition ( 0, 0, 100 ) to SUT; /*2*/
+SUT: in setPosition ( 0, 0, 100 ) from TAT; /*Shovel2*/
+TAT: out setTool(_spike) to SUT; /*3*/
+SUT: in setTool(_spike) from TAT; /*Shovel2*/
+TAT: out moveTool ( 0, 0, 75, 0, 0 ) to SUT; /*4*/
+SUT: in moveTool ( 0, 0, 75, 0, 0 ) from TAT; /*Shovel3*/
+TAT: out moveTool ( 25, 25, 100, 0, 0 ) to SUT; /*5*/
+SUT: in moveTool ( 25, 25, 100, 0, 0 ) from TAT; /*Shovel4*/
+TAT: out setTool(_blank) to SUT; /*6*/
+SUT: in setTool(_blank) from TAT; /*Shovel4*/
+TAT: out moveTool ( -10, 0, 75, 0, 0 ) to SUT; /*7*/
+SUT: in moveTool ( -10, 0, 75, 0, 0 ) from TAT; /*Shovel5*/
+TAT: out setTool(_needle) to SUT;  /*8*/
+SUT: in setTool(_needle) from TAT; /*Shovel5*/
+TAT: out moveTool ( 0, 0, 50, 0, 0 ) to SUT; /*9*/
+SUT: in moveTool ( 0, 0, 50, 0, 0 ) from TAT; /*Shovel6*/
+TAT: out moveTool ( -15, 0, 60, 0, 0 ) to SUT; /*10*/
+SUT: in moveTool ( -15, 0, 60, 0, 0 ) from TAT; /*Shovel7*/
+TAT: out setTool(_blank) to SUT;  /*11*/
+SUT: in setTool(_blank) from TAT; /*Shovel7*/
+TAT: out moveTool ( 0, 0, 100, 0, 0 ) to SUT; /*12*/
+SUT: in moveTool ( 0, 0, 100, 0, 0 ) from TAT; /*Shovel7*/
+TAT: out setTool(_spike) to SUT; /*13*/
+SUT: in setTool(_spike) from TAT; /*Shovel8*/
+TAT: out shave ( 25, 0, 2, 0, 1 ) to SUT; /*14*/
+SUT: in shave ( 25, 0, 2, 0, 1 ) from TAT;  /*Shovel9*/
+TAT: out shave ( 25, 0, 5, 0, 0 ) to SUT; /*15*/
+SUT: in shave ( 25, 0, 5, 0, 0 ) from TAT; /*Shovel10*/
+TAT: out setTool(_blank) to SUT; /*переход  /*16*/
+SUT: in setTool(_blank) from TAT; /*Shovel10*/
+TAT: out moveTool ( 0, 0, 50, 0, 0 ) to SUT; /*17*/
+SUT: in moveTool ( 0, 0, 50, 0, 0 ) from TAT; /*Shovel11*/
+TAT: out setTool(_drill) to SUT; /*18*/
+SUT: in setTool(_drill) from TAT; /*Shovel11*/
+TAT: out drill () to SUT; /*19*/
+SUT: in drill () from TAT; /*Shovel12*/
+TAT: out EndWork() to SUT;  /*20*/
+SUT: in EndWork() from TAT; /*Shovel12*/
+TAT: endinstance;
+SUT: endinstance;
+endmsc;

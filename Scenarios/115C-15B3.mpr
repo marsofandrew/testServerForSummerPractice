@@ -1,0 +1,23 @@
+mscdocument Bolt;
+msc Bolt;
+TAT: instance;
+SUT: instance;
+TAT: out initialize() to SUT; /*1*/
+SUT: in initialize() from TAT; /*Bolt1*/
+TAT: out setPosition ( 0, 0, 0 ) to SUT; /*2*/
+SUT: in setPosition ( 0, 0, 0 ) from TAT; /*Bolt1*/
+TAT: out setTool(_rook) to SUT; /*3*/
+SUT: in setTool(_rook) from TAT; /*Bolt2*/
+TAT: out moveTool ( 0, 0, 100, 0, 0 ) to SUT; /*4*/
+SUT: in moveTool ( 0, 0, 100, 0, 0 ) from TAT; /*Bolt3*/
+TAT: out setTool(_rubber) to SUT; /*5*/
+SUT: in setTool(_rubber) from TAT; /*Bolt4*/
+TAT: out moveTool ( 0, 0, 0, 0, 0 ) to SUT; /*6*/
+SUT: in moveTool ( 0, 0, 0, 0, 0 ) from TAT;/*Bolt5*/
+TAT: out setTool(_blank) to SUT; /*7*/
+SUT: in setTool(_blank) from TAT;/*Bolt6*/
+TAT: out EndWork() to SUT; /*8*/
+SUT: in EndWork() from TAT; /*Bolt6*/
+TAT: endinstance;
+SUT: endinstance;
+endmsc;
