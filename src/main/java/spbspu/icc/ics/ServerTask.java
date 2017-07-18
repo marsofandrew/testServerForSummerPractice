@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * Created by Андрей on 12.07.2017.
  */
 class ServerTask implements Runnable {
-    private int maxThread;
+    private int maxThread = 3;
 
     public ServerTask() {
-        maxThread = Runtime.getRuntime().availableProcessors(); // ammount of Threads equals ammount of proessor's
+        //maxThread = Runtime.getRuntime().availableProcessors(); // ammount of Threads equals ammount of proessor's
         // threads
         System.out.println("maxThread = " + maxThread);
     }

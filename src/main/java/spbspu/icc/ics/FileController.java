@@ -1,8 +1,6 @@
 package spbspu.icc.ics;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -19,51 +17,39 @@ public class FileController {
     }
 
     public synchronized String getCommand(String client) throws IOException {
-      /*  StringBuilder it = new StringBuilder(clients.get(clients.indexOf(client)));
-        //System.out.println(it);
+        clients.add(client);
+        StringBuilder it = new StringBuilder(clients.get(clients.indexOf(client)));
         if (it.toString().equals(clients.lastElement())){
-            clients.add(client);
             Scanner scanner = null;
             FileInputStream input = null;
             try{
                 input  = new FileInputStream(client + ".mpr");
                 scanner = new Scanner(input);
-            }catch (FileNotFoundException e){      ////IOException and FileNotFoundException???
+            }catch (FileNotFoundException e){
                 e.printStackTrace();
             }
-            localFiles.add(input);
+            localFiles.add(scanner);
             it = new StringBuilder(clients.get(clients.indexOf(client)));
         }
-        String toReturn = "";
+        String toReturn;
         boolean hasFileEnded = false;
-        ///////////////////////////////////////////////////////// trash
         int distance1 = clients.indexOf(clients.firstElement());
         int distance2 = clients.indexOf(client);
-        int distance = Math.abs(distance1-distance2);  //!!!!!!!!!!!!! help
-        if(localFiles.elementAt(distance).read() == -1){
+        int distance = Math.abs(distance1-distance2);
+        if(!localFiles.elementAt(distance).hasNext()){
             System.out.println("One of the files has ended!");
             hasFileEnded = true;
         }
         if(!hasFileEnded){
-            while(localFiles.elementAt(distance).read() != -1){    //// rly FileInputStream?
-                toReturn += localFiles.elementAt(distance).read(); //// vs getline??
-            }
+            toReturn = localFiles.elementAt(distance).nextLine();
             return toReturn;
         }
         else {
-            hasFileEnded = false;
-            return toReturn;
+            //hasFileEnded = false;
+            return "";
         }
-        */
-        String toReturn = null;
-        File file = new File(client + ".mpr");
-        toReturn = file.toString();
-
-        return toReturn;
     }
-
     private Vector<String> clients;
-    private Vector<File> localFiles;
-    //Lock mutex;
+    private Vector<Scanner> localFiles;
 }
 
