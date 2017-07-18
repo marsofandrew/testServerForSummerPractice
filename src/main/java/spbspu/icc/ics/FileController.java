@@ -23,7 +23,7 @@ public class FileController {
             Scanner scanner = null;
             FileInputStream input = null;
             try{
-                input  = new FileInputStream(client + ".mpr");
+                input  = new FileInputStream("Scenarios/"+client + ".mpr");
                 scanner = new Scanner(input);
             }catch (FileNotFoundException e){
                 e.printStackTrace();
