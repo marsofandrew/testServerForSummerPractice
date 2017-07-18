@@ -30,12 +30,12 @@ class ServerTask implements Runnable {
         //  Backend socket talks to workers over inproc
         ZMQ.Socket backend = ctx.createSocket(ZMQ.DEALER);
         backend.bind("inproc://backend");
-
+        FileController fileController = new FileController();
 
         //  Launch pool of worker threads, precise number is not critical
         for (int threadNbr = 0; threadNbr < maxThread; threadNbr++) {
 
-            new Thread(new ServerWorker(ctx, ZMQ.DEALER, new FileController())).start();
+            new Thread(new ServerWorker(ctx, ZMQ.DEALER, fileController)).start();
         }
         //  Connect backend to frontend via a proxy
         ZMQ.proxy(frontend, backend, null);

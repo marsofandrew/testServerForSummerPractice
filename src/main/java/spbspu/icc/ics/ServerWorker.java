@@ -43,7 +43,11 @@ class ServerWorker implements Runnable {
             }
 
             //synchronized (this) {
-            toSend = fileController.getCommand(reply);
+            try {
+                toSend = fileController.getCommand(reply);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             //}
             ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
 
