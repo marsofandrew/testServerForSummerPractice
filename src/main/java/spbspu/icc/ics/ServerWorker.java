@@ -37,12 +37,15 @@ class ServerWorker implements Runnable {
 
             String reply = address.toString();
             // msg.popString return Massege string;
-            System.out.println("reply " + reply);
+            System.out.println("reply's identity " + reply);
             if (!checkReply(msg.popString())) {
-                System.err.println("something wrong 1 at SErverWorker");
+                System.err.println("Something wrong 1 at ServerWorker");
             }
+
             try {
-                toSend = fileController.getCommand(reply);
+                //synchronized (this) {
+                    toSend = fileController.getCommand(reply);
+                //}
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -63,7 +66,6 @@ class ServerWorker implements Runnable {
 
         }
         ctx.destroy();
-        System.out.println("end ServerTask");
     }
 
     public String getToSend() {
@@ -75,9 +77,6 @@ class ServerWorker implements Runnable {
     }
 
     private boolean checkReply(String reply) {
-        if (toSend == reply || toSend == null) {
-            return true;
-        }
-        return false;
+        return true;
     }
 }

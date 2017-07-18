@@ -12,7 +12,14 @@ import java.util.ArrayList;
  * Created by Андрей on 12.07.2017.
  */
 class ServerTask implements Runnable {
-    private int maxThread = 4;
+    private int maxThread;
+
+    public ServerTask() {
+        maxThread = Runtime.getRuntime().availableProcessors(); // ammount of Threads equals ammount of proessor's
+        // threads
+        System.out.println("maxThread = " + maxThread);
+    }
+
     public void run() {
         ZContext ctx = new ZContext();
 
@@ -36,12 +43,13 @@ class ServerTask implements Runnable {
         ctx.destroy();
 
     }
+
     public void setMaxThread(int value) throws InvalidArgumentException {
         if (value > 0) {
             maxThread = value;
-        }else {
+        } else {
             System.err.println("You can't set value <=0");
-           // throw new InvalidArgumentException();
+            // throw new InvalidArgumentException();
         }
     }
 
