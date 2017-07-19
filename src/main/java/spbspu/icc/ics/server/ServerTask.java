@@ -1,23 +1,20 @@
-package spbspu.icc.ics;
+package spbspu.icc.ics.server;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
-import org.omg.DynamicAny.DynAnyPackage.InvalidValue;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import spbspu.icc.ics.server.FileController;
+import spbspu.icc.ics.server.ServerWorker;
 
 /**
  * Created by Андрей on 12.07.2017.
  */
-class ServerTask implements Runnable {
+public class ServerTask implements Runnable {
     private int maxThread = 5;
-
+    private FileController fileController = new FileController();
     public ServerTask() {
-        //maxThread = Runtime.getRuntime().availableProcessors(); // ammount of Threads equals ammount of proessor's
-        // threads
         System.out.println("maxThread = " + maxThread);
+        maxThread = fileController.getClientsAmount();
     }
 
     public void run() {
@@ -30,7 +27,7 @@ class ServerTask implements Runnable {
         //  Backend socket talks to workers over inproc
         ZMQ.Socket backend = ctx.createSocket(ZMQ.DEALER);
         backend.bind("inproc://backend");
-        FileController fileController = new FileController();
+
 
         //  Launch pool of worker threads, precise number is not critical
         for (int threadNbr = 0; threadNbr < maxThread; threadNbr++) {

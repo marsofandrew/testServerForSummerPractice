@@ -1,5 +1,7 @@
 package spbspu.icc.ics;
 
+import spbspu.icc.ics.server.ServerTask;
+
 public class Main
 {
 

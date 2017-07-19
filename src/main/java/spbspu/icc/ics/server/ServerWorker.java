@@ -1,13 +1,12 @@
-package spbspu.icc.ics;
+package spbspu.icc.ics.server;
 
 import org.zeromq.ZContext;
 import org.zeromq.ZFrame;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMsg;
+import spbspu.icc.ics.server.FileController;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Created by Андрей on 12.07.2017.

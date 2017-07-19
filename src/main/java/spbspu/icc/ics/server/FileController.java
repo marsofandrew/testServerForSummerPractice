@@ -1,14 +1,27 @@
-package spbspu.icc.ics;
+package spbspu.icc.ics.server;
 
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class FileController {
-
+    private Vector<String> clients;
+    private Vector<Scanner> localFiles;
+    private File[] mprList;
     public FileController() {
+        // TODO: 19.07.2017 use mprList how client list 
         clients = new Vector<>(10, 2);
         localFiles = new Vector<>(10, 2);
+        FileFilter mprFileFilter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.isFile() && pathname.canRead() && pathname.getName().endsWith(".mpr");
+            }
+        };
+        File mprDir = new File("Scenarios/");
+        mprList = mprDir.listFiles(mprFileFilter);
+       System.out.println("amount of files = " + mprList.length);
     }
 
     public FileController(FileController other) {
@@ -49,7 +62,9 @@ public class FileController {
             return "";
         }
     }
-    private Vector<String> clients;
-    private Vector<Scanner> localFiles;
+
+    public int getClientsAmount(){
+        return mprList.length;
+    }
 }
 
