@@ -1,5 +1,6 @@
 package spbspu.icc.ics.server;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.zeromq.ZContext;
 import org.zeromq.ZFrame;
 import org.zeromq.ZMQ;
@@ -42,11 +43,13 @@ class ServerWorker implements Runnable {
             }
 
             //synchronized (this) {
+
             try {
                 toSend = fileController.getCommand(reply);
-            } catch (IOException e) {
+            } catch (InvalidArgumentException e) {
                 e.printStackTrace();
             }
+
             //}
             ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
 

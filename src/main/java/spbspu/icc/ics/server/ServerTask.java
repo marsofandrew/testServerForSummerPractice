@@ -10,11 +10,11 @@ import spbspu.icc.ics.server.ServerWorker;
  * Created by Андрей on 12.07.2017.
  */
 public class ServerTask implements Runnable {
-    private int maxThread = 5;
+    private int maxThread;
     private FileController fileController = new FileController();
+
     public ServerTask() {
-        System.out.println("maxThread = " + maxThread);
-        maxThread = fileController.getClientsAmount();
+        maxThread = fileController.getClientsAmount() <= 0 ? 5 : fileController.getClientsAmount();
     }
 
     public void run() {
@@ -31,7 +31,6 @@ public class ServerTask implements Runnable {
 
         //  Launch pool of worker threads, precise number is not critical
         for (int threadNbr = 0; threadNbr < maxThread; threadNbr++) {
-
             new Thread(new ServerWorker(ctx, ZMQ.DEALER, fileController)).start();
         }
         //  Connect backend to frontend via a proxy
