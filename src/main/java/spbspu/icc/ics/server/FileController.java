@@ -46,6 +46,7 @@ class FileController {
         String toReturn = "";
         Scanner scn = scaners.get(clients.indexOf(client));
         toReturn = scn.hasNext() ? scn.nextLine() : "File " + client + " has ended";
+
         return toReturn;
     }
 
