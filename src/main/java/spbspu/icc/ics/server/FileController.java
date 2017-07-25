@@ -58,7 +58,7 @@ class FileController {
     public int getClientsAmount() {
         return clients.size();
     }
-    public String getPrevCommand(String client) throws InvalidArgumentException {
+    public synchronized String getPrevCommand(String client) throws InvalidArgumentException {
         client = client + ".mpr";
         if (clients.indexOf(client)==-1){
             throw new InvalidArgumentException(new String[]{"Client don't found"});
