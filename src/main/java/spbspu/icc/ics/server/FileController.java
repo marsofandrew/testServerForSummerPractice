@@ -10,6 +10,8 @@ import java.util.Vector;
 class FileController {
     private Vector<Scanner> scaners;
     private Vector<String> clients;
+    private Vector<String> commands;
+
 
     public FileController() {
         // TODO: 19.07.2017 use mprList how client list
@@ -26,8 +28,10 @@ class FileController {
         System.out.println("amount of files = " + mprList.length);
         clients = new Vector<>(mprList.length, 2);
         scaners = new Vector<>(mprList.length, 2);
+        commands = new Vector<>(mprList.length,2);
         for (File file : mprList) {
             clients.add(file.getName());
+            commands.add("No command");
             try {
                 scaners.add(new Scanner(file));
             } catch (FileNotFoundException e) {
@@ -40,18 +44,26 @@ class FileController {
 
     public synchronized String getCommand(String client) throws InvalidArgumentException {
         client = client + ".mpr";
+        String command = "";
         if (clients.indexOf(client) == -1) {
             throw new InvalidArgumentException(new String[]{"Client don't found"});
         }
-        String toReturn = "";
+        int index = clients.indexOf(client);
         Scanner scn = scaners.get(clients.indexOf(client));
-        toReturn = scn.hasNext() ? scn.nextLine() : "File " + client + " has ended";
-
-        return toReturn;
+        command = scn.hasNext() ? scn.nextLine() : "File " + client + " has ended";
+        commands.set(index,command);
+        return command;
     }
 
     public int getClientsAmount() {
         return clients.size();
+    }
+    public String getPrevCommand(String client) throws InvalidArgumentException {
+        client = client + ".mpr";
+        if (clients.indexOf(client)==-1){
+            throw new InvalidArgumentException(new String[]{"Client don't found"});
+        }
+        return commands.get(clients.indexOf(client));
     }
 }
 

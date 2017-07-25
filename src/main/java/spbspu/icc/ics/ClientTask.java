@@ -37,11 +37,7 @@ class ClientTask implements Runnable {
             e.printStackTrace();
         }
         while (!Thread.currentThread().isInterrupted()) {
-            try {
-                Thread.currentThread().sleep( 1 + new Random().nextInt(1000));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             String forTest = "";
             //  Tick once per second, pulling in arriving messages
             for (int centitick = 0; centitick < 100; centitick++) {
@@ -53,9 +49,18 @@ class ClientTask implements Runnable {
                     ZMsg msg = ZMsg.recvMsg(client);
                     msg.getLast().print(identity);
                     forTest = msg.popString();
+                    System.out.println("Client "+identity+" get: " +forTest);
                     msg.destroy();
                 }
             }
+
+            try {
+                Thread.currentThread().sleep( 500 + new Random().nextInt(2000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Client "+ identity+ " send: " + forTest);
             client.send(forTest, 0);
         }
         ctx.destroy();

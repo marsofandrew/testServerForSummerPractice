@@ -35,34 +35,26 @@ class ServerWorker implements Runnable {
             msg.getLast().print("Server get:");
             ZFrame address = msg.pop();
 
-            String reply = address.toString();
-            // msg.popString return Massege string;
-            System.out.println("reply's identity " + reply);
-            if (!checkReply(msg.popString())) {
-                System.err.println("Something wrong 1 at ServerWorker");
-            }
-
-            //synchronized (this) {
-
-            try {
-                toSend = fileController.getCommand(reply);
-            } catch (InvalidArgumentException e) {
-                e.printStackTrace();
-            }
-
-            //}
-            ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
-
-
+            String identity = address.toString();
+            //String reply =  msg.popString();
+            System.out.println("reply's identity " + identity);
             msg.destroy();
-            /*try {
-                Thread.sleep(1 + new Random().nextInt(10000));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+            if (checkReply(msg.popString(),identity)) {
+                try {
+                    toSend = fileController.getCommand(identity);
+                } catch (InvalidArgumentException e) {
+                    e.printStackTrace();
+                }
+                ZFrame forSend = ZMsg.newStringMsg(toSend).pop();
+                System.out.println("Server send to client " + identity + toSend);
+
+                address.send(worker, ZFrame.REUSE + ZFrame.MORE);
+                forSend.send(worker, ZFrame.REUSE);
+                forSend.destroy();
+            } else {
+                System.out.println("Server Not true");
             }
-            */
-            address.send(worker, ZFrame.REUSE + ZFrame.MORE);
-            forSend.send(worker, ZFrame.REUSE);
 
             address.destroy();
 
@@ -78,7 +70,16 @@ class ServerWorker implements Runnable {
         toSend = string;
     }
 
-    private boolean checkReply(String reply) {
-        return true;
+    private boolean checkReply(String reply, String identity) {
+        System.out.println(identity);
+        System.out.println("reply == " + reply);
+        try {
+            if (reply.equals(fileController.getPrevCommand(identity))|| fileController.getPrevCommand(identity)=="No command") {
+                return true;
+            }
+        } catch (InvalidArgumentException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
