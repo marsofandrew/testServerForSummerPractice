@@ -45,12 +45,19 @@ class FileController {
     public synchronized String getCommand(String client) throws InvalidArgumentException {
         client = client + ".mpr";
         String command = "";
-        if (clients.indexOf(client) == -1) {
+        int index = clients.indexOf(client);
+        if (index == -1) {
             throw new InvalidArgumentException(new String[]{"Client don't found"});
         }
-        int index = clients.indexOf(client);
-        Scanner scn = scaners.get(clients.indexOf(client));
+
+        Scanner scn = scaners.get(index);
         command = scn.hasNext() ? scn.nextLine() : "File " + client + " has ended";
+        /*if(!scn.hasNext()){
+          //close Scanner and reopen it.
+            scn.close();
+            scaners.set(index,new Scanner(new File()))
+        }
+        */
         commands.set(index,command);
         return command;
     }
