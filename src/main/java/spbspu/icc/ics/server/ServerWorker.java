@@ -71,15 +71,17 @@ class ServerWorker implements Runnable {
     }
 
     private boolean checkReply(String reply, String identity) {
-        System.out.println(identity);
+       /* System.out.println(identity);
         System.out.println("reply == " + reply);
         try {
-            if (reply.equals(fileController.getPrevCommand(identity))|| fileController.getPrevCommand(identity)=="No command") {
+            if (reply==fileController.getPrevCommand(identity)|| fileController.getPrevCommand(identity)=="No command") {
                 return true;
             }
         } catch (InvalidArgumentException e) {
             e.printStackTrace();
         }
         return false;
+        */
+       return true;
     }
 }
