@@ -93,9 +93,10 @@ class FileController {
         return commands.get(clients.indexOf(client));
     }
 
+
     private void setAmmounOfDetail() {
         for (int i = 0; i < mprList.length; i++) {
-            ammounOfDetail[i] = 1;
+            ammounOfDetail[i] = 3;
         }
     }
 }

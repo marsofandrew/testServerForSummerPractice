@@ -82,6 +82,10 @@ class ServerWorker implements Runnable {
         }
         return false;
         */
+        /*if (reply!=null&&reply.equals("Stop")){
+            return false;
+        }
+        */
        return true;
     }
 }
